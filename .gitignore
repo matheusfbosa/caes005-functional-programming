@@ -1,1 +1,6 @@
 .DS_Store
+
+# Haskell
+.stack-work/
+*.cabal
+*.lock
