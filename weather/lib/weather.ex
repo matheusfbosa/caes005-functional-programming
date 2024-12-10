@@ -4,7 +4,7 @@ defmodule Weather do
   """
 
   @doc """
-  Retrieves the temperature for a given location.
+  Retrieves the temperature in Celsius for a given location.
 
   ## Examples
       iex> Weather.get_temp("Curitiba")
@@ -34,6 +34,20 @@ defmodule Weather do
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, "Request failed: #{reason}"}
     end
+  end
+
+  @doc """
+  Converts temperature from Celsius to Fahrenheit.
+
+  ## Examples
+      iex> Weather.celsius_to_fahrenheit(20.0)
+      68.0
+
+  ## Parameters
+      - `celsius`: The temperature in Celsius.
+  """
+  def celsius_to_fahrenheit(celsius) do
+    celsius * 9 / 5 + 32
   end
 
   defp http_client do

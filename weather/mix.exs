@@ -23,7 +23,8 @@ defmodule Weather.MixProject do
     [
       {:httpoison, "~> 2.0"},
       {:jason, "~> 1.4"},
-      {:mox, "~> 1.0", only: :test}
+      {:mox, "~> 1.0", only: :test},
+      {:stream_data, "~> 1.1", only: :test}
     ]
   end
 end

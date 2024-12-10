@@ -1,6 +1,9 @@
 defmodule WeatherTest do
   use ExUnit.Case, async: true
+  use ExUnitProperties
+
   import Mox
+  import StreamData
 
   setup :verify_on_exit!
 
@@ -39,6 +42,21 @@ defmodule WeatherTest do
 
       assert Weather.get_temp("invalidLocation") ==
                {:error, "Request failed with status code: 400"}
+    end
+  end
+
+  describe "celsius_to_fahrenheit/1" do
+    test "converts Celsius to Fahrenheit correctly" do
+      assert Weather.celsius_to_fahrenheit(0.0) == 32.0
+      assert Weather.celsius_to_fahrenheit(100.0) == 212.0
+      assert Weather.celsius_to_fahrenheit(-40.0) == -40.0
+    end
+
+    property "converts random Celsius values to Fahrenheit" do
+      check all(celsius <- float(min: -100.0, max: 100.0)) do
+        fahrenheit = Weather.celsius_to_fahrenheit(celsius)
+        assert fahrenheit == celsius * 9 / 5 + 32
+      end
     end
   end
 end
